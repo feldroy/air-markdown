@@ -92,5 +92,10 @@ build: clean ## builds source and wheel package
 	uv build
 	ls -l build dist
 
-install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+
+VERSION=v$(shell grep -m 1 version pyproject.toml | tr -s ' ' | tr -d '"' | tr -d "'" | cut -d' ' -f3)
+
+tag:
+	echo "Tagging version $(VERSION)"
+	git tag -a $(VERSION) -m "Creating version $(VERSION)"
+	git push origin $(VERSION)
