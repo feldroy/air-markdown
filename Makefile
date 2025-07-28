@@ -90,7 +90,6 @@ release: dist ## package and upload a release
 build: clean ## builds source and wheel package
 	rm -rf build dist
 	uv build
-	ls -l build dist
 
 
 VERSION=v$(shell grep -m 1 version pyproject.toml | tr -s ' ' | tr -d '"' | tr -d "'" | cut -d' ' -f3)
