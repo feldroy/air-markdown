@@ -2,37 +2,12 @@
 
 import air
 import mistletoe
-# import pygments
 
-
-# default_style = "colorful"
-# formatter = pygments.HtmlFormatter(style=default_style, cssclass=default_style)
-# default_style_definition = formatter.get_style_defs(f".{default_style}")
-
-
-# class HighlightStyle(air.Tag):
-#     def __init__(self, *args, **kwargs):
-#         """Display the CSS needed for a tag.
-
-#         Args:
-#             *args: A style argument that matches what Pygments provides
-#             **kwargs: Ignored (for consistency with Tag interface)
-#         """
-#         if len(args) == 0:
-#             self.style_definition = default_style_definition
-#         elif len(args) == 1:
-#             self.style_definition = formatter.get_style_defs(f".{args[1]}")
-#         else:
-#             raise ValueError("HighlightStyle tag accepts only one string argument")
-#         super().__init__('')    
-
-#     def render(self) -> str:
-#         """Render the string with the Markdown library."""
-#         return air.Style(self.style_definition)
     
 
 
 class Markdown(air.Tag):
+
     def __init__(self, *args, **kwargs):
         """Convert a Markdown string to HTML using mistletoe
 
@@ -50,7 +25,44 @@ class Markdown(air.Tag):
 
         super().__init__(raw_string)
 
+    @property
+    def html_renderer(self) -> mistletoe.HtmlRenderer:
+        """Override this to change the HTML renderer.
+        
+        Example:
+            import mistletoe
+            from air_markdown import Markdown
+
+            class MyCustomRenderer(mistletoe.HtmlRenderer):
+                # My customizations here
+
+            Markdown.html_renderer = MyCustomRenderer
+
+            Markdown('# Important title Here')
+        """
+        return mistletoe.HtmlRenderer
+    
+    def wrapper(self, content) -> str:
+        """Override this method to handle cases where CSS needs it.
+        
+        Example:
+            from air_markdown import Markdown
+
+            class TailwindTypographyMarkdown(Markdown):
+                def wrapper(self):
+                    return f'<article class="prose">{content}</article>'
+                    
+
+            Markdown('# Important title Here')
+        """        
+        return content
+
     def render(self) -> str:
         """Render the string with the Markdown library."""
         content = self._children[0] if self._children else ""
-        return mistletoe.markdown(content, mistletoe.HtmlRenderer)
+        return self.wrapper(mistletoe.markdown(content, self.html_renderer))
+
+
+class TailwindTypographyMarkdown(Markdown):
+    def wrapper(self, content) -> str:
+        return f'<article class="prose">{content}</article>'
