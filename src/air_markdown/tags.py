@@ -72,18 +72,18 @@ class TailwindTypographyMarkdown(Markdown):
 
 class AirHTMLRenderer(HtmlRenderer):
     def render_block_code(self, token: block_token.BlockCode) -> str:
-        """Render airtag_rendered code blocks as the executed output
+        """Render air-live code blocks as the executed output
         of calling the Air Tag's .render() method.
 
         For example:
-        ```airtag_rendered
+        ```air-live
         air.H1("Title")
         air.P("Paragraph")
         ```
         will render as `<h1>Title</h1>\n<p>Paragraph</p>`
         """
         template = "<pre><code{attr}>{inner}</code></pre>"
-        if token.language == "airtag_rendered":
+        if token.language == "air-live":
             code = token.content.strip()
             if not code:
                 return ""
@@ -111,9 +111,9 @@ class AirHTMLRenderer(HtmlRenderer):
                 return "\n".join(rendered_parts)
 
             except Exception as e:
-                error_message = f"Error rendering airtag: {e}"
+                error_message = f"Error rendering air-live block: {e}"
                 inner = self.escape_html_text(f"{code}\n\n{error_message}")
-                attr = ' class="language-airtag-error"'
+                attr = ' class="language-air-live-error"'
                 return template.format(attr=attr, inner=inner)
 
         elif token.language:

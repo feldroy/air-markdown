@@ -71,34 +71,34 @@ def test_air_markdown():
 
 def test_air_markdown_airtag():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 air.H2("Test")
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<h2>Test</h2>\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<h2>Test</h2>\n</article>'
 
 
 def test_air_markdown_airtag_with_import():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 import math
 air.H2(f"Test {math.ceil(42.1)}")
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<h2>Test 43</h2>\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<h2>Test 43</h2>\n</article>'
 
 
 def test_air_markdown_airtag_error():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 air.H2("Test"
 ```
 """
@@ -108,57 +108,57 @@ air.H2("Test"
 
 def test_air_markdown_airtag_empty():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
 def test_air_markdown_airtag_no_expression():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 x = 1
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
 def test_air_markdown_airtag_multiple_statements():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 x = \"Hello\"
 y = \"World\"
 air.P(f"{x}, {y}!")
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<p>Hello, World!</p>\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<p>Hello, World!</p>\n</article>'
 
 
 def test_air_markdown_airtag_not_air_tag():
     html = AirMarkdown(
-        """# Heading into airtag_rendered
+        """# Heading into air-live
 
-```airtag_rendered
+```air-live
 "string"
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n\n</article>'
+    assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
 def test_air_markdown_airtag_multiple_tags():
     markdown_content = """
 # Multiple Tags
-```airtag_rendered
+```air-live
 air.H1(\"Title\")
 air.P(\"This is a paragraph.\")
 ```
@@ -173,7 +173,7 @@ air.P(\"This is a paragraph.\")
 def test_air_markdown_airtag_multiple_tags_with_logic():
     markdown_content = """
 # Multiple Tags with Logic
-```airtag_rendered
+```air-live
 title = \"My Title\"
 air.H1(title)
 content = \"Some content.\"

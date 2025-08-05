@@ -10,9 +10,9 @@ Markdown = Air Tags + Mistletoe
 ## Features
 
 * Handy `Markdown()` Air Tag that renders Markdown into HTML.
-* Powerful `AirMarkdown()` Air Tag that renders Markdown into HTML, including rendering of Air Tags inside ````airtag_rendered``` blocks. For example, if you have:
+* Powerful `AirMarkdown()` Air Tag that renders Markdown into HTML, including rendering of Air Tags inside ````air-live``` blocks. For example, if you have:
 
-```airtag_rendered
+```air-live
 air.H2("Heading 2")
 ```
 
