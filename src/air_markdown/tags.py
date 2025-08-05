@@ -1,9 +1,10 @@
 """Main module."""
 
 import air
+import html
 import mistletoe
-
-    
+from mistletoe import block_token
+from mistletoe.html_renderer import HtmlRenderer
 
 
 class Markdown(air.Tag):
@@ -66,3 +67,18 @@ class Markdown(air.Tag):
 class TailwindTypographyMarkdown(Markdown):
     def wrapper(self, content) -> str:
         return f'<article class="prose">{content}</article>'
+    
+
+class ExecPyHtmlRenderer(HtmlRenderer):
+    def render_block_code(self, token: block_token.BlockCode) -> str:
+        template = '<pre><code{attr}>{inner}</code></pre>'
+        if token.language:
+            attr = ' class="{}"'.format('language-{}'.format(html.escape(token.language)))
+        else:
+            attr = ''
+        inner = self.escape_html_text(token.content)
+        return template.format(attr=attr, inner=inner)
+
+
+class ExecPyMarkdown(Markdown):
+    html_renderer = ExecPyHtmlRenderer

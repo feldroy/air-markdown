@@ -4,6 +4,7 @@ import mistletoe
 
 
 from air_markdown import Markdown, TailwindTypographyMarkdown
+from air_markdown.tags import ExecPyMarkdown
 
 
 def test_markdown_tag_h1():
@@ -53,3 +54,7 @@ def test_TailwindTypographyMarkdown():
     html = TailwindTypographyMarkdown('# Tailwind support').render()
     assert html == '<article class="prose"><h1>Tailwind support</h1>\n</article>'
 
+def test_exec_py_markdown():
+    html = ExecPyMarkdown("""# Heading into markdown""").render()
+    assert html == '<section><h1>Heading into markdown</h1>\n</section>'
+    
