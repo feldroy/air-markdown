@@ -40,6 +40,7 @@ for i in range(5):
 
 
 def test_custom_html_renderer():
+
     from air_markdown import Markdown as LocalMarkdown
 
     class CustomRenderer(mistletoe.HtmlRenderer):
@@ -70,8 +71,7 @@ def test_air_markdown():
 
 def test_air_markdown_airtag():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 air.H2("Test")
@@ -83,8 +83,7 @@ air.H2("Test")
 
 def test_air_markdown_airtag_with_import():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 import math
@@ -97,8 +96,7 @@ air.H2(f"Test {math.ceil(42.1)}")
 
 def test_air_markdown_airtag_error():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 air.H2("Test"
@@ -110,8 +108,7 @@ air.H2("Test"
 
 def test_air_markdown_airtag_empty():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 ```
@@ -122,8 +119,7 @@ def test_air_markdown_airtag_empty():
 
 def test_air_markdown_airtag_no_expression():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 x = 1
@@ -135,12 +131,11 @@ x = 1
 
 def test_air_markdown_airtag_multiple_statements():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
-x = "Hello"
-y = "World"
+x = \"Hello\"
+y = \"World\"
 air.P(f"{x}, {y}!")
 ```
 """
@@ -150,12 +145,43 @@ air.P(f"{x}, {y}!")
 
 def test_air_markdown_airtag_not_air_tag():
     html = AirMarkdown(
-        """
-# Heading into airtag_rendered
+        """# Heading into airtag_rendered
 
 ```airtag_rendered
 "string"
 ```
 """
     ).render()
-    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\nstring\n</article>'
+    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n\n</article>'
+
+
+def test_air_markdown_airtag_multiple_tags():
+    markdown_content = """
+# Multiple Tags
+```airtag_rendered
+air.H1(\"Title\")
+air.P(\"This is a paragraph.\")
+```
+"""
+    html = AirMarkdown(markdown_content).render()
+    expected_html = (
+        '<article class="prose"><h1>Multiple Tags</h1>\n<h1>Title</h1>\n<p>This is a paragraph.</p>\n</article>'
+    )
+    assert html == expected_html
+
+
+def test_air_markdown_airtag_multiple_tags_with_logic():
+    markdown_content = """
+# Multiple Tags with Logic
+```airtag_rendered
+title = \"My Title\"
+air.H1(title)
+content = \"Some content.\"
+air.P(content)
+```
+"""
+    html = AirMarkdown(markdown_content).render()
+    expected_html = (
+        '<article class="prose"><h1>Multiple Tags with Logic</h1>\n<h1>My Title</h1>\n<p>Some content.</p>\n</article>'
+    )
+    assert html == expected_html

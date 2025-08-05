@@ -2,8 +2,6 @@
 
 import ast
 import html
-from contextlib import redirect_stdout
-from io import StringIO
 
 import air
 import mistletoe
@@ -79,9 +77,10 @@ class AirHTMLRenderer(HtmlRenderer):
 
         For example:
         ```airtag_rendered
-        air.H2("Heading 2")
+        air.H1("Title")
+        air.P("Paragraph")
         ```
-        will render as `<h2>Heading 2</h2>`
+        will render as `<h1>Title</h1>\n<p>Paragraph</p>`
         """
         template = "<pre><code{attr}>{inner}</code></pre>"
         if token.language == "airtag_rendered":
@@ -91,28 +90,25 @@ class AirHTMLRenderer(HtmlRenderer):
 
             try:
                 module = ast.parse(code)
-                if not module.body:
-                    return ""
+                rendered_parts = []
+                local_scope = {}  # Initialize local_scope here
 
-                if isinstance(module.body[-1], ast.Expr):
-                    last_expr_node = module.body.pop()
-                    statements = ast.Module(body=module.body, type_ignores=[])
-                    code_obj = compile(statements, "<string>", "exec")
-                    local_scope = {}
-                    exec(code_obj, globals(), local_scope)
+                for node in module.body:
+                    statement_module = ast.Module(body=[node], type_ignores=[])
+                    if isinstance(node, ast.Expr):
+                        # Evaluate expression and render if it's an Air Tag
+                        expr_obj = compile(ast.Expression(body=node.value), "<string>", "eval")
+                        # Ensure local_scope is passed to eval
+                        result = eval(expr_obj, globals(), local_scope)
+                        if isinstance(result, air.Tag):
+                            rendered_parts.append(result.render())
+                    else:
+                        # Execute other statements (imports, assignments, etc.)
+                        code_obj = compile(statement_module, "<string>", "exec")
+                        # Ensure local_scope is passed to exec
+                        exec(code_obj, globals(), local_scope)
 
-                    expr_obj = compile(ast.Expression(body=last_expr_node.value), "<string>", "eval")  # type: ignore
-                    result = eval(expr_obj, globals(), local_scope)
-
-                    if isinstance(result, air.Tag):
-                        return result.render()
-                    return str(result)
-                else:
-                    # Fallback for statements without a final expression
-                    f = StringIO()
-                    with redirect_stdout(f):
-                        exec(code, globals(), {})
-                    return f.getvalue()
+                return "\n".join(rendered_parts)
 
             except Exception as e:
                 error_message = f"Error rendering airtag: {e}"
