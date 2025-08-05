@@ -22,7 +22,7 @@ wheels = [
 
 [[package]]
 name = "air-markdown"
-version = "0.2.1"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "air" },
@@ -30,6 +30,9 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+dev = [
+    { name = "rust-just" },
+]
 test = [
     { name = "coverage" },
     { name = "ipdb" },
@@ -51,9 +54,10 @@ requires-dist = [
     { name = "mistletoe", specifier = ">=1.4.0" },
     { name = "pytest", marker = "extra == 'test'" },
     { name = "ruff", marker = "extra == 'test'" },
+    { name = "rust-just", marker = "extra == 'dev'" },
     { name = "ty", marker = "extra == 'test'" },
 ]
-provides-extras = ["test"]
+provides-extras = ["dev", "test"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "rust-just", specifier = ">=1.42.4" }]

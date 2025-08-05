@@ -1,13 +1,15 @@
 [project]
 name = "air-markdown"
-version = "0.2.1"
+version = "0.3.0"
 description = "Air Tags + Markdown"
 readme = "README.md"
 authors = [
-  {name = "Daniel Roy Greenfeld", email = "daniel@feldroy.com"}
+  {name = "Daniel Roy Greenfeld", email = "daniel@feldroy.com"},
+  {name = "Audrey Roy Greenfeld", email = "audrey@feldroy.com"}
 ]
 maintainers = [
-  {name = "Daniel Roy Greenfeld", email = "daniel@feldroy.com"}
+  {name = "Daniel Roy Greenfeld", email = "daniel@feldroy.com"},
+  {name = "Audrey Roy Greenfeld", email = "audrey@feldroy.com"}
 ]
 classifiers = [
     "Operating System :: OS Independent",
@@ -37,6 +39,7 @@ dependencies = [
 requires-python = ">= 3.10"
 
 [project.optional-dependencies]
+dev = ["rust-just"]
 test = [
     "coverage",  # testing
     "pytest",  # testing
