@@ -40,7 +40,6 @@ for i in range(5):
 
 
 def test_custom_html_renderer():
-
     from air_markdown import Markdown as LocalMarkdown
 
     class CustomRenderer(mistletoe.HtmlRenderer):
@@ -103,7 +102,7 @@ air.H2("Test"
 ```
 """
     ).render()
-    assert "Error rendering airtag" in html
+    assert "Error rendering air-live block" in html
 
 
 def test_air_markdown_airtag_empty():
