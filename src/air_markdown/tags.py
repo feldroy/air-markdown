@@ -2,6 +2,8 @@
 
 import air
 import html
+from io import StringIO
+from contextlib import redirect_stdout
 import mistletoe
 from mistletoe import block_token
 from mistletoe.html_renderer import HtmlRenderer
@@ -72,7 +74,13 @@ class TailwindTypographyMarkdown(Markdown):
 class ExecPyHtmlRenderer(HtmlRenderer):
     def render_block_code(self, token: block_token.BlockCode) -> str:
         template = '<pre><code{attr}>{inner}</code></pre>'
-        if token.language:
+        if token.language == 'airtag_rendered':
+            code = token.content.strip()
+            f = StringIO()
+            with redirect_stdout(f):
+                exec(code, globals(), {})
+            return f.getvalue()            
+        elif token.language:
             attr = ' class="{}"'.format('language-{}'.format(html.escape(token.language)))
         else:
             attr = ''

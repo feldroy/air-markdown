@@ -57,4 +57,22 @@ def test_TailwindTypographyMarkdown():
 def test_exec_py_markdown():
     html = ExecPyMarkdown("""# Heading into markdown""").render()
     assert html == '<section><h1>Heading into markdown</h1>\n</section>'
-    
+
+def test_exec_py_markdown_airtag():
+    html = ExecPyMarkdown("""# Heading into airtag_rendered
+
+```airtag_rendered
+print(air.H2("Test").render())
+```
+""").render()
+    assert html == '<section><h1>Heading into airtag_rendered</h1>\n<h2>Test</h2>\n\n</section>'
+
+def test_exec_py_markdown_airtag_with_import():
+    html = ExecPyMarkdown("""# Heading into airtag_rendered
+
+```airtag_rendered
+import math
+print(air.H2(f"Test {math.ceil(42.1)}").render())
+```
+""").render()
+    assert html == '<section><h1>Heading into airtag_rendered</h1>\n<h2>Test 43</h2>\n\n</section>'
