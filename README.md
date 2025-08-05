@@ -9,20 +9,28 @@ Markdown = Air Tags + Mistletoe
 
 ## Features
 
-* Handy `Markdown()` Air Tag that renders markdown into HTML.
+* Handy `Markdown()` Air Tag that renders Markdown into HTML.
+* Powerful `AirMarkdown()` Air Tag that renders Markdown into HTML, including rendering of Air Tags inside ````airtag_rendered``` blocks. For example, if you have:
+
+```airtag_rendered
+air.H2("Heading 2")
+```
+
+it will render as `<h2>Heading 2</h2>`.
+
 
 ## Installation
 
-Via pip:
-
-```sh
-pip install air-markdown
-```
-
-or uv:
+Via uv:
 
 ```sh
 uv add air-markdown
+```
+
+Or pip:
+
+```sh
+pip install air-markdown
 ```
 
 ## Usage
