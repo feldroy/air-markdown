@@ -2,23 +2,22 @@
 
 import mistletoe
 
-
 from air_markdown import Markdown, TailwindTypographyMarkdown
 from air_markdown.tags import AirMarkdown
 
 
 def test_markdown_tag_h1():
     html = Markdown("# Hello, world").render()
-    assert html == '<h1>Hello, world</h1>\n'
+    assert html == "<h1>Hello, world</h1>\n"
 
 
 def test_markdown_h1_and_p():
     html = Markdown("""
 # Hello, world
 
-This is a paragraph.    
+This is a paragraph.
 """).render()
-    assert html == '<h1>Hello, world</h1>\n<p>This is a paragraph.</p>\n'
+    assert html == "<h1>Hello, world</h1>\n<p>This is a paragraph.</p>\n"
 
 
 def test_code_example():
@@ -30,33 +29,40 @@ for i in range(5):
     print(i)
 ```
 """).render()
-    assert html == '<h1>Code Example</h1>\n<pre><code class="language-python">for i in range(5):\n    print(i)\n</code></pre>\n'
+    assert (
+        html
+        == '<h1>Code Example</h1>\n<pre><code class="language-python">for i in range(5):\n    print(i)\n</code></pre>\n'
+    )
+
 
 def test_custom_html_renderer():
-
     from air_markdown import Markdown as LocalMarkdown
 
     class CustomRenderer(mistletoe.HtmlRenderer):
-        def render_strong(self, token: mistletoe.span_token.Strong) -> str:
+        def render_strong(self, token: mistletoe.span_token.Strong) -> str:  # type: ignore
             template = '<strong class="superman">{}</strong>'
-            return template.format(self.render_inner(token))  
+            return template.format(self.render_inner(token))
 
-    LocalMarkdown.html_renderer = CustomRenderer
+    LocalMarkdown.html_renderer = CustomRenderer  # type: ignore
 
-    assert LocalMarkdown('**Hello, World**').render() == '<p><strong class="superman">Hello, World</strong></p>\n'
+    assert LocalMarkdown("**Hello, World**").render() == '<p><strong class="superman">Hello, World</strong></p>\n'
+
 
 def test_custom_wrapper_dynamic_assignment():
-    Markdown.wrapper = lambda self, x: f'<section>{x}</section>'   
+    Markdown.wrapper = lambda self, x: f"<section>{x}</section>"  # type: ignore
 
-    assert Markdown('# Big').render() == '<section><h1>Big</h1>\n</section>'
+    assert Markdown("# Big").render() == "<section><h1>Big</h1>\n</section>"
+
 
 def test_TailwindTypographyMarkdown():
-    html = TailwindTypographyMarkdown('# Tailwind support').render()
+    html = TailwindTypographyMarkdown("# Tailwind support").render()
     assert html == '<article class="prose"><h1>Tailwind support</h1>\n</article>'
+
 
 def test_air_markdown():
     html = AirMarkdown("""# Heading into markdown""").render()
     assert html == '<article class="prose"><h1>Heading into markdown</h1>\n</article>'
+
 
 def test_air_markdown_airtag():
     html = AirMarkdown("""# Heading into airtag_rendered
@@ -66,6 +72,7 @@ print(air.H2("Test").render())
 ```
 """).render()
     assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<h2>Test</h2>\n\n</article>'
+
 
 def test_air_markdown_airtag_with_import():
     html = AirMarkdown("""# Heading into airtag_rendered

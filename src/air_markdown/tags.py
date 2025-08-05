@@ -1,16 +1,16 @@
 """Main module."""
 
-import air
 import html
-from io import StringIO
 from contextlib import redirect_stdout
+from io import StringIO
+
+import air
 import mistletoe
 from mistletoe import block_token
 from mistletoe.html_renderer import HtmlRenderer
 
 
 class Markdown(air.Tag):
-
     def __init__(self, *args, **kwargs):
         """Convert a Markdown string to HTML using mistletoe
 
@@ -29,9 +29,9 @@ class Markdown(air.Tag):
         super().__init__(raw_string)
 
     @property
-    def html_renderer(self) -> mistletoe.HtmlRenderer:
+    def html_renderer(self) -> mistletoe.HtmlRenderer:  # type: ignore
         """Override this to change the HTML renderer.
-        
+
         Example:
             import mistletoe
             from air_markdown import Markdown
@@ -44,20 +44,20 @@ class Markdown(air.Tag):
             Markdown('# Important title Here')
         """
         return mistletoe.HtmlRenderer
-    
+
     def wrapper(self, content) -> str:
         """Override this method to handle cases where CSS needs it.
-        
+
         Example:
             from air_markdown import Markdown
 
             class TailwindTypographyMarkdown(Markdown):
                 def wrapper(self):
                     return f'<article class="prose">{content}</article>'
-                    
+
 
             Markdown('# Important title Here')
-        """        
+        """
         return content
 
     def render(self) -> str:
@@ -69,21 +69,21 @@ class Markdown(air.Tag):
 class TailwindTypographyMarkdown(Markdown):
     def wrapper(self, content) -> str:
         return f'<article class="prose">{content}</article>'
-    
+
 
 class AirHTMLRenderer(HtmlRenderer):
     def render_block_code(self, token: block_token.BlockCode) -> str:
-        template = '<pre><code{attr}>{inner}</code></pre>'
-        if token.language == 'airtag_rendered':
+        template = "<pre><code{attr}>{inner}</code></pre>"
+        if token.language == "airtag_rendered":
             code = token.content.strip()
             f = StringIO()
             with redirect_stdout(f):
                 exec(code, globals(), {})
-            return f.getvalue()            
+            return f.getvalue()
         elif token.language:
-            attr = ' class="{}"'.format('language-{}'.format(html.escape(token.language)))
+            attr = ' class="{}"'.format(f"language-{html.escape(token.language)}")
         else:
-            attr = ''
+            attr = ""
         inner = self.escape_html_text(token.content)
         return template.format(attr=attr, inner=inner)
 
