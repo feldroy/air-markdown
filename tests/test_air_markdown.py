@@ -56,7 +56,7 @@ def test_TailwindTypographyMarkdown():
 
 def test_air_markdown():
     html = AirMarkdown("""# Heading into markdown""").render()
-    assert html == '<section><h1>Heading into markdown</h1>\n</section>'
+    assert html == '<article class="prose"><h1>Heading into markdown</h1>\n</article>'
 
 def test_air_markdown_airtag():
     html = AirMarkdown("""# Heading into airtag_rendered
@@ -65,7 +65,7 @@ def test_air_markdown_airtag():
 print(air.H2("Test").render())
 ```
 """).render()
-    assert html == '<section><h1>Heading into airtag_rendered</h1>\n<h2>Test</h2>\n\n</section>'
+    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<h2>Test</h2>\n\n</article>'
 
 def test_air_markdown_airtag_with_import():
     html = AirMarkdown("""# Heading into airtag_rendered
@@ -75,4 +75,4 @@ import math
 print(air.H2(f"Test {math.ceil(42.1)}").render())
 ```
 """).render()
-    assert html == '<section><h1>Heading into airtag_rendered</h1>\n<h2>Test 43</h2>\n\n</section>'
+    assert html == '<article class="prose"><h1>Heading into airtag_rendered</h1>\n<h2>Test 43</h2>\n\n</article>'

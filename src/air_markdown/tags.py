@@ -90,3 +90,6 @@ class AirHTMLRenderer(HtmlRenderer):
 
 class AirMarkdown(Markdown):
     html_renderer = AirHTMLRenderer
+
+    def wrapper(self, content) -> str:
+        return f'<article class="prose">{content}</article>'
