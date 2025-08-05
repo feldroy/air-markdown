@@ -71,7 +71,7 @@ class TailwindTypographyMarkdown(Markdown):
         return f'<article class="prose">{content}</article>'
     
 
-class ExecPyHtmlRenderer(HtmlRenderer):
+class AirHTMLRenderer(HtmlRenderer):
     def render_block_code(self, token: block_token.BlockCode) -> str:
         template = '<pre><code{attr}>{inner}</code></pre>'
         if token.language == 'airtag_rendered':
@@ -88,5 +88,5 @@ class ExecPyHtmlRenderer(HtmlRenderer):
         return template.format(attr=attr, inner=inner)
 
 
-class ExecPyMarkdown(Markdown):
-    html_renderer = ExecPyHtmlRenderer
+class AirMarkdown(Markdown):
+    html_renderer = AirHTMLRenderer
