@@ -6,6 +6,15 @@ qa:
     uv run --python=3.13 --extra test ty check .
     uv run --python=3.13 --extra test pytest .
 
+# Run all the checks for CI
+ci:
+    uv run --python=3.13 --extra test ruff format --check .
+    uv run --python=3.13 --extra test ruff check .
+    uv run --python=3.13 --extra test ruff check --select I .
+    uv run --python=3.13 --extra test ty check .
+    uv run --python=3.13 --extra test pytest .
+
+
 # Run all the tests for all the supported Python versions
 testall:
     uv run --python=3.10 --extra test pytest
