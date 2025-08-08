@@ -35,7 +35,7 @@ for i in range(5):
     ).render()
     assert (
         html
-        == '<h1>Code Example</h1>\n<pre><code class=\"language-python\">for i in range(5):\n    print(i)\n</code></pre>\n'
+        == '<h1>Code Example</h1>\n<pre><code class="language-python">for i in range(5):\n    print(i)\n</code></pre>\n'
     )
 
 
@@ -61,6 +61,7 @@ def test_custom_wrapper_dynamic_assignment():
 def test_TailwindTypographyMarkdown():
     html = TailwindTypographyMarkdown("# Tailwind support").render()
     assert html == '<article class="prose"><h1>Tailwind support</h1>\n</article>'
+
 
 def test_AirMarkdown():
     html = AirMarkdown("# Heading into markdown").render()
