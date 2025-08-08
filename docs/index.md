@@ -1,4 +1,4 @@
-# Welcome to air-markdown's documentation!
+# Welcome to AirMarkdown's documentation!
 
 ## Contents
 

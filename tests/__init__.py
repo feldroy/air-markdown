@@ -1,1 +1,1 @@
-"""Unit test package for air_markdown."""
+"""Unit test package for AirMarkdown."""

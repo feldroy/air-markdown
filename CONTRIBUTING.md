@@ -8,7 +8,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at https://github.com/feldroy/air_markdown/issues.
+Report bugs at https://github.com/feldroy/AirMarkdown/issues.
 
 If you are reporting a bug, please include:
 
@@ -26,11 +26,11 @@ Look through the GitHub issues for features. Anything tagged with "enhancement" 
 
 ### Write Documentation
 
-air-markdown could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.
+AirMarkdown could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/feldroy/air_markdown/issues.
+The best way to send feedback is to file an issue at https://github.com/feldroy/AirMarkdown/issues.
 
 If you are proposing a feature:
 
@@ -40,20 +40,20 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `air_markdown` for local development.
+Ready to contribute? Here's how to set up `AirMarkdown` for local development.
 
-1. Fork the `air_markdown` repo on GitHub.
+1. Fork the `AirMarkdown` repo on GitHub.
 2. Clone your fork locally:
 
    ```sh
-   git clone git@github.com:your_name_here/air_markdown.git
+   git clone git@github.com:your_name_here/AirMarkdown.git
    ```
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
 
    ```sh
-   mkvirtualenv air_markdown
-   cd air_markdown/
+   mkvirtualenv AirMarkdown
+   cd AirMarkdown/
    python setup.py develop
    ```
 
@@ -97,7 +97,7 @@ Before you submit a pull request, check that it meets these guidelines:
 To run a subset of tests:
 
 ```sh
-pytest tests.test_air_markdown
+pytest tests.test_AirMarkdown
 ```
 
 ## Deploying

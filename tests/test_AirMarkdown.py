@@ -1,9 +1,9 @@
-"""Tests for `air_markdown` package."""
+"""Tests for `AirMarkdown` package."""
 
 import mistletoe
 
-from air_markdown import Markdown, TailwindTypographyMarkdown
-from air_markdown.tags import AirMarkdown
+from AirMarkdown import Markdown, TailwindTypographyMarkdown
+from AirMarkdown.tags import AirMarkdown
 
 
 def test_markdown_tag_h1():
@@ -35,12 +35,12 @@ for i in range(5):
     ).render()
     assert (
         html
-        == '<h1>Code Example</h1>\n<pre><code class="language-python">for i in range(5):\n    print(i)\n</code></pre>\n'
+        == '<h1>Code Example</h1>\n<pre><code class=\"language-python\">for i in range(5):\n    print(i)\n</code></pre>\n'
     )
 
 
 def test_custom_html_renderer():
-    from air_markdown import Markdown as LocalMarkdown
+    from AirMarkdown import Markdown as LocalMarkdown
 
     class CustomRenderer(mistletoe.HtmlRenderer):
         def render_strong(self, token: mistletoe.span_token.Strong) -> str:  # type: ignore
@@ -62,25 +62,24 @@ def test_TailwindTypographyMarkdown():
     html = TailwindTypographyMarkdown("# Tailwind support").render()
     assert html == '<article class="prose"><h1>Tailwind support</h1>\n</article>'
 
-
-def test_air_markdown():
+def test_AirMarkdown():
     html = AirMarkdown("# Heading into markdown").render()
     assert html == '<article class="prose"><h1>Heading into markdown</h1>\n</article>'
 
 
-def test_air_markdown_airtag():
+def test_AirMarkdown_airtag():
     html = AirMarkdown(
         """# Heading into air-live
 
 ```air-live
-air.H2("Test")
+air.H2(\"Test\")
 ```
 """
     ).render()
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<h2>Test</h2>\n</article>'
 
 
-def test_air_markdown_airtag_with_import():
+def test_AirMarkdown_airtag_with_import():
     html = AirMarkdown(
         """# Heading into air-live
 
@@ -93,19 +92,19 @@ air.H2(f"Test {math.ceil(42.1)}")
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<h2>Test 43</h2>\n</article>'
 
 
-def test_air_markdown_airtag_error():
+def test_AirMarkdown_airtag_error():
     html = AirMarkdown(
         """# Heading into air-live
 
 ```air-live
-air.H2("Test"
+air.H2(\"Test"
 ```
 """
     ).render()
     assert "Error rendering air-live block" in html
 
 
-def test_air_markdown_airtag_empty():
+def test_AirMarkdown_airtag_empty():
     html = AirMarkdown(
         """# Heading into air-live
 
@@ -116,7 +115,7 @@ def test_air_markdown_airtag_empty():
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
-def test_air_markdown_airtag_no_expression():
+def test_AirMarkdown_airtag_no_expression():
     html = AirMarkdown(
         """# Heading into air-live
 
@@ -128,7 +127,7 @@ x = 1
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
-def test_air_markdown_airtag_multiple_statements():
+def test_AirMarkdown_airtag_multiple_statements():
     html = AirMarkdown(
         """# Heading into air-live
 
@@ -142,7 +141,7 @@ air.P(f"{x}, {y}!")
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n<p>Hello, World!</p>\n</article>'
 
 
-def test_air_markdown_airtag_not_air_tag():
+def test_AirMarkdown_airtag_not_air_tag():
     html = AirMarkdown(
         """# Heading into air-live
 
@@ -154,7 +153,7 @@ def test_air_markdown_airtag_not_air_tag():
     assert html == '<article class="prose"><h1>Heading into air-live</h1>\n\n</article>'
 
 
-def test_air_markdown_airtag_multiple_tags():
+def test_AirMarkdown_airtag_multiple_tags():
     markdown_content = """
 # Multiple Tags
 ```air-live
@@ -169,7 +168,7 @@ air.P(\"This is a paragraph.\")
     assert html == expected_html
 
 
-def test_air_markdown_airtag_multiple_tags_with_logic():
+def test_AirMarkdown_airtag_multiple_tags_with_logic():
     markdown_content = """
 # Multiple Tags with Logic
 ```air-live
