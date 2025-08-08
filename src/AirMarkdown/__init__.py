@@ -1,4 +1,4 @@
-"""Top-level package for air-markdown."""
+"""Top-level package for AirMarkdown."""
 
 __author__ = """Daniel Roy Greenfeld"""
 __email__ = "daniel@feldroy.com"

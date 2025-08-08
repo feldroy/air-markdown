@@ -1,5 +1,5 @@
 [project]
-name = "air-markdown"
+name = "AirMarkdown"
 version = "0.4.0"
 description = "Air Tags + Markdown"
 readme = "README.md"
@@ -50,9 +50,9 @@ test = [
 
 [project.urls]
 
-bugs = "https://github.com/feldroy/air_markdown/issues"
-changelog = "https://github.com/feldroy/air_markdown/blob/master/changelog.md"
-homepage = "https://github.com/feldroy/air_markdown"
+bugs = "https://github.com/feldroy/AirMarkdown/issues"
+changelog = "https://github.com/feldroy/AirMarkdown/blob/master/changelog.md"
+homepage = "https://github.com/feldroy/AirMarkdown"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

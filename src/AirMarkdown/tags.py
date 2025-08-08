@@ -33,7 +33,7 @@ class Markdown(air.Tag):
 
         Example:
             import mistletoe
-            from air_markdown import Markdown
+            from AirMarkdown import Markdown
 
             class MyCustomRenderer(mistletoe.HtmlRenderer):
                 # My customizations here
@@ -48,7 +48,7 @@ class Markdown(air.Tag):
         """Override this method to handle cases where CSS needs it.
 
         Example:
-            from air_markdown import Markdown
+            from AirMarkdown import Markdown
 
             class TailwindTypographyMarkdown(Markdown):
                 def wrapper(self):

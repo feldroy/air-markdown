@@ -1,7 +1,7 @@
 # Usage
 
-To use air-markdown in a project:
+To use AirMarkdown in a project:
 
 ```python
-import air_markdown
+import AirMarkdown
 ```
