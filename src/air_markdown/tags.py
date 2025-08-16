@@ -1,12 +1,11 @@
 """Main module."""
 
 import ast
-import html
 
 import air
 import mistletoe
 from mistletoe import block_token
-from mistletoe.html_renderer import HtmlRenderer
+from mistletoe.contrib.pygments_renderer import PygmentsRenderer
 
 
 class Markdown(air.Tag):
@@ -42,7 +41,7 @@ class Markdown(air.Tag):
 
             Markdown('# Important title Here')
         """
-        return mistletoe.HtmlRenderer
+        return PygmentsRenderer
 
     def wrapper(self, content) -> str:
         """Override this method to handle cases where CSS needs it.
@@ -70,7 +69,7 @@ class TailwindTypographyMarkdown(Markdown):
         return f'<article class="prose">{content}</article>'
 
 
-class AirHTMLRenderer(HtmlRenderer):
+class AirHTMLRenderer(PygmentsRenderer):
     def render_block_code(self, token: block_token.BlockCode) -> str:
         """Render air-live code blocks as the executed output
         of calling the Air Tag's .render() method.
@@ -116,12 +115,7 @@ class AirHTMLRenderer(HtmlRenderer):
                 attr = ' class="language-air-live-error"'
                 return template.format(attr=attr, inner=inner)
 
-        elif token.language:
-            attr = ' class="{}"'.format(f"language-{html.escape(token.language)}")
-        else:
-            attr = ""
-        inner = self.escape_html_text(token.content)
-        return template.format(attr=attr, inner=inner)
+        return super().render_block_code(token)
 
 
 class AirMarkdown(Markdown):

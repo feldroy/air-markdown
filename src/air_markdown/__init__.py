@@ -3,5 +3,12 @@
 __author__ = """Daniel Roy Greenfeld"""
 __email__ = "daniel@feldroy.com"
 
-from .tags import Markdown as Markdown
-from .tags import TailwindTypographyMarkdown as TailwindTypographyMarkdown
+from .tags import (
+    AirMarkdown as AirMarkdown,
+)
+from .tags import (
+    Markdown as Markdown,
+)
+from .tags import (
+    TailwindTypographyMarkdown as TailwindTypographyMarkdown,
+)
