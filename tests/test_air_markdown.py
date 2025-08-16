@@ -33,9 +33,12 @@ for i in range(5):
 ```
 """
     ).render()
-    assert (
-        html
-        == '<h1>Code Example</h1>\n<pre><code class="language-python">for i in range(5):\n    print(i)\n</code></pre>\n'
+    assert html == (
+        '<h1>Code Example</h1>\n<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%;">'
+        '<span></span><span style="color: #008000; font-weight: bold">for</span> i '
+        '<span style="color: #A2F; font-weight: bold">in</span> <span style="color: #008000">'
+        'range</span>(<span style="color: #666">5</span>):\n    <span style="color: #008000">print</span>(i)'
+        "\n</pre></div>\n\n"
     )
 
 
@@ -184,3 +187,18 @@ air.P(content)
         '<article class="prose"><h1>Multiple Tags with Logic</h1>\n<h1>My Title</h1>\n<p>Some content.</p>\n</article>'
     )
     assert html == expected_html
+
+
+def test_air_markdown_with_pygments():
+    markdown_content = """
+```python
+import air
+```
+"""
+    html = AirMarkdown(markdown_content).render()
+    assert html == (
+        '<article class="prose"><div class="highlight" style="background: #f8f8f8">'
+        '<pre style="line-height: 125%;"><span></span><span style="color: #008000; font-weight: bold">import</span>'
+        '<span style="color: #BBB"> </span><span style="color: #00F; font-weight: bold">air</span>\n</pre></div>'
+        "\n\n</article>"
+    )
